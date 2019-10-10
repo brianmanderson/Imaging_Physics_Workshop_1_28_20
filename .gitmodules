@@ -1,0 +1,6 @@
+[submodule "Dicom_RT_and_Images_to_Mask"]
+	path = Dicom_RT_and_Images_to_Mask
+	url = https://github.com/brianmanderson/Dicom_RT_and_Images_to_Mask.git
+[submodule "Copy_Folders"]
+	path = Copy_Folders
+	url = https://github.com/brianmanderson/Copy_Folders.git

@@ -30,10 +30,10 @@ class Data_Generator(Sequence):
         self.batch_size = batch_size
 
     def return_rectangle(self):
-        return make_rectangle(self.image_size,self.image_size)
+        return make_rectangle(self.image_size)
 
     def return_circle(self):
-        return make_circle(self.image_size,self.image_size)
+        return make_circle(self.image_size)
 
     def __getitem__(self, item):
         output = np.zeros((self.batch_size, self.image_size, self.image_size, 1))

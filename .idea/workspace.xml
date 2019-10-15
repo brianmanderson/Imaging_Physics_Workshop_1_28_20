@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b876930d-857c-4eee-b60f-f7e69535d84a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Callbacks" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Visualizing_Model" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitmodules" beforeDir="false" afterPath="$PROJECT_DIR$/.gitmodules" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/DeepBox-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/DeepBox-checkpoint.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DeepBox.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/DeepBox.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dicom_RT_and_Images_to_Mask" beforeDir="false" afterPath="$PROJECT_DIR$/Dicom_RT_and_Images_to_Mask" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shape_Maker.py" beforeDir="false" afterPath="$PROJECT_DIR$/Shape_Maker.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Visualizing_Model/Visualing_Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Visualizing_Model/Visualing_Model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Visualizing_Model" beforeDir="false" afterPath="$PROJECT_DIR$/Visualizing_Model" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -60,8 +53,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Visualizing_Model/Visualing_Model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="77" column="24" selection-start-line="77" selection-start-column="24" selection-end-line="77" selection-end-column="24" />
+            <state relative-caret-position="265">
+              <caret line="79" column="44" lean-forward="true" selection-start-line="79" selection-start-column="44" selection-end-line="79" selection-end-column="44" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
                 <element signature="e#2316#2881#0" />
@@ -212,12 +205,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1571069111367</updated>
-      <workItem from="1571069113857" duration="13270000" />
+      <workItem from="1571069113857" duration="14510000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13270000" />
+    <option name="totallyTimeSpent" value="14510000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1448" y="49" width="1456" height="916" extended-state="6" />
@@ -229,8 +222,8 @@
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Python Console" weight="0.32827735" />
-      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.38697317" />
+      <window_info active="true" anchor="bottom" id="Python Console" visible="true" weight="0.32822478" />
+      <window_info anchor="bottom" id="Terminal" weight="0.38697317" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -432,8 +425,8 @@ rows, cols = np.where(image == 1)</expression-string>
     </entry>
     <entry file="file://$PROJECT_DIR$/Visualizing_Model/Visualing_Model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="77" column="24" selection-start-line="77" selection-start-column="24" selection-end-line="77" selection-end-column="24" />
+        <state relative-caret-position="265">
+          <caret line="79" column="44" lean-forward="true" selection-start-line="79" selection-start-column="44" selection-end-line="79" selection-end-column="44" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
             <element signature="e#2316#2881#0" />

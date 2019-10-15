@@ -1,16 +1,19 @@
 from keras.utils import Sequence
 import numpy as np
 from skimage.draw import rectangle, circle
+import matplotlib.pyplot as plt
 from keras import Sequential
 from keras.layers import Conv2D, MaxPool2D, Dense, Flatten, Activation, Input
 
 
 def make_rectangle(image_size=50):
     image = np.zeros((image_size,image_size))
-    rows, cols = np.random.randint(1,image.shape[0]), np.random.randint(1,image.shape[1])
+    rows, cols = np.random.randint(3,image.shape[0]), np.random.randint(3,image.shape[1])
     origin_x, origin_y = np.random.randint(rows//2,image.shape[0]-rows//2), np.random.randint(cols//2,image.shape[1]-cols//2)
     rr, cc = rectangle((origin_x,origin_y),extent=(rows,cols),shape=image.shape)
     image[rr,cc] = 1
+    rows, cols = np.where(image==1)
+    image[np.min(rows)+1:np.max(rows),np.min(cols)+1:np.max(cols)] = 0
     return image
 
 
@@ -20,6 +23,8 @@ def make_circle(image_size=50):
     origin_x, origin_y = np.random.randint(radius,image.shape[0]-radius), np.random.randint(radius,image.shape[1]-radius)
     rr, cc = circle(origin_x,origin_y,radius,shape=image.shape)
     image[rr,cc] = 1
+    rr, cc = circle(origin_x,origin_y,radius-1,shape=image.shape)
+    image[rr,cc] = 0
     return image
 
 

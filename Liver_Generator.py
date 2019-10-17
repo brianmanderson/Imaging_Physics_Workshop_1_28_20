@@ -26,7 +26,7 @@ class Data_Generator(Sequence):
         print(file)
         data = nib.load(os.path.join(self.data_path,file))
         data = data.get_fdata() # Data should be of shape [2, # images, # images, 1]
-        images = np.tile(data[0],self.channels)
+        images = np.stack([data[0] for _ in range(self.channels)],axis=-1)
         annotation = data[1]
         annotation = np_utils.to_categorical(annotation,2)
         self.image_dictionary[file] = [images[None,...],annotation[None,...]]

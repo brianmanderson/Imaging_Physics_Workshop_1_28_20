@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b876930d-857c-4eee-b60f-f7e69535d84a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/DeepBox-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/DeepBox-checkpoint.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Liver_Model-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/Liver_Model-checkpoint.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeepBox.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/DeepBox.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dicom_RT_and_Images_to_Mask" beforeDir="false" afterPath="$PROJECT_DIR$/Dicom_RT_and_Images_to_Mask" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Liver_Generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Liver_Generator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Liver_Model.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Liver_Model.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Visualizing_Model" beforeDir="false" afterPath="$PROJECT_DIR$/Visualizing_Model" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Visualizing_Model/Visualing_Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Visualizing_Model/Visualing_Model.py" afterDir="false" />
     </list>
@@ -43,11 +45,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Liver_Generator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="78" column="42" lean-forward="true" selection-start-line="78" selection-start-column="42" selection-end-line="78" selection-end-column="42" />
+            <state relative-caret-position="347">
+              <caret line="93" selection-start-line="93" selection-end-line="93" />
               <folding>
                 <element signature="e#57#89#0" expanded="true" />
               </folding>
@@ -59,7 +61,7 @@
         <entry file="file://$PROJECT_DIR$/Distribute_Patients.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="502">
-              <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
+              <caret line="47" selection-start-line="47" selection-end-line="47" />
               <folding>
                 <element signature="e#57#66#0" expanded="true" />
               </folding>
@@ -79,23 +81,25 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Visualizing_Model/Visualing_Model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1642">
-              <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
+            <state relative-caret-position="442">
+              <caret line="62" column="27" selection-start-line="62" selection-start-column="27" selection-end-line="62" selection-end-column="27" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
                 <element signature="e#2316#2881#0" />
                 <element signature="e#3338#4549#0" />
-                <element signature="e#4597#5889#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="7" lean-forward="true" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+            <state relative-caret-position="408">
+              <caret line="24" selection-start-line="24" selection-end-line="24" selection-end-column="36" />
+              <folding>
+                <element signature="e#57#122#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -127,14 +131,14 @@
         <option value="$PROJECT_DIR$/Callbacks/Visualizing_Model_Utils.py" />
         <option value="$PROJECT_DIR$/Dicom_RT_and_Images_to_Mask/Image_Array_And_Mask_From_Dicom_RT.py" />
         <option value="$PROJECT_DIR$/Shape_Maker.py" />
-        <option value="$PROJECT_DIR$/Visualizing_Model/Visualing_Model.py" />
         <option value="$PROJECT_DIR$/Distribute_Patients.py" />
-        <option value="$PROJECT_DIR$/Test.py" />
         <option value="$PROJECT_DIR$/Liver_Generator.py" />
+        <option value="$PROJECT_DIR$/Test.py" />
+        <option value="$PROJECT_DIR$/Visualizing_Model/Visualing_Model.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="165" />
     <option name="y" value="-12" />
     <option name="width" value="1089" />
@@ -332,15 +336,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1571069111367</updated>
-      <workItem from="1571069113857" duration="33054000" />
+      <workItem from="1571069113857" duration="37153000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33054000" />
+    <option name="totallyTimeSpent" value="37153000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
@@ -349,8 +353,8 @@
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="Version Control" />
-      <window_info active="true" anchor="bottom" id="Python Console" visible="true" weight="0.37053087" />
-      <window_info anchor="bottom" id="Terminal" weight="0.29035753" />
+      <window_info anchor="bottom" id="Python Console" weight="0.37053087" />
+      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.29035753" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -396,7 +400,7 @@
     <SUITE FILE_PATH="coverage/Code$scratch_28.coverage" NAME="scratch_28 Coverage Results" MODIFIED="1571084598266" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
     <SUITE FILE_PATH="coverage/Code$Shape_Maker.coverage" NAME="Shape_Maker Coverage Results" MODIFIED="1571077644182" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Code$Liver_Generator.coverage" NAME="Liver_Generator Coverage Results" MODIFIED="1571253074585" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Code$Test.coverage" NAME="Test Coverage Results" MODIFIED="1571332077159" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Code$Test.coverage" NAME="Test Coverage Results" MODIFIED="1571335657272" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Code$Distribute_Patients.coverage" NAME="Distribute_Patients Coverage Results" MODIFIED="1571330122556" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="debuggerHistoryManager">
@@ -486,52 +490,52 @@ rows, cols = np.where(image == 1)</expression-string>
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>np.stack([data[0][...,0] for _ in range(self.channels)],axis=-1)</expression-string>
+        <expression-string>layer_activation[layer_activation.shape[0]//2,...]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>images.shape</expression-string>
+        <expression-string>layer_activation</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>data[0].shape</expression-string>
+        <expression-string>type(self.activations) == list</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>len(patient_image_keys)</expression-string>
+        <expression-string>self.activations</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>file = 'ABD_LYMPH_007_146.nii.gz'</expression-string>
+        <expression-string>self.activations = self.activation_model.predict(img_tensor)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>annotation</expression-string>
+        <expression-string>self.layer_outputs</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>data</expression-string>
+        <expression-string>self.layer_names</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>self.file_list</expression-string>
+        <expression-string>Visualizing_Class.activations</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>self.image_dictionary</expression-string>
+        <expression-string>plt.imshow(channel_image,cmap='gray')</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>images</expression-string>
+        <expression-string>plt.imshow(channel_image)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -575,39 +579,48 @@ rows, cols = np.where(image == 1)</expression-string>
     <entry file="file://$PROJECT_DIR$/Distribute_Patients.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="502">
-          <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
+          <caret line="47" selection-start-line="47" selection-end-line="47" />
           <folding>
             <element signature="e#57#66#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Test.py">
+    <entry file="file://$PROJECT_DIR$/Liver_Generator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="7" lean-forward="true" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+        <state relative-caret-position="347">
+          <caret line="93" selection-start-line="93" selection-end-line="93" />
+          <folding>
+            <element signature="e#57#89#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="308" selection-start-line="308" selection-end-line="308" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Visualizing_Model/Visualing_Model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1642">
-          <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
+        <state relative-caret-position="442">
+          <caret line="62" column="27" selection-start-line="62" selection-start-column="27" selection-end-line="62" selection-end-column="27" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
             <element signature="e#2316#2881#0" />
             <element signature="e#3338#4549#0" />
-            <element signature="e#4597#5889#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Liver_Generator.py">
+    <entry file="file://$PROJECT_DIR$/Test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="78" column="42" lean-forward="true" selection-start-line="78" selection-start-column="42" selection-end-line="78" selection-end-column="42" />
+        <state relative-caret-position="408">
+          <caret line="24" selection-start-line="24" selection-end-line="24" selection-end-column="36" />
           <folding>
-            <element signature="e#57#89#0" expanded="true" />
+            <element signature="e#57#122#0" expanded="true" />
           </folding>
         </state>
       </provider>

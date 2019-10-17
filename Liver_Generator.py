@@ -9,29 +9,27 @@ from Dicom_RT_and_Images_to_Mask.Image_Array_And_Mask_From_Dicom_RT import plot_
 from keras.utils import np_utils
 
 class Data_Generator(Sequence):
-    def __init__(self, data_path, batch_size=10, shuffle=True, mean_val=0, std_val=1):
+    def __init__(self, data_path, batch_size=10, shuffle=False, mean_val=0, std_val=1, channels=3):
+        self.data_path = data_path
+        self.channels = channels
         self.mean_val = mean_val
         self.std_val = std_val
         self.image_dictionary = {}
         self.load_list = []
         self.batch_size = batch_size
         self.shuffle = shuffle
-        self.load_all_images(data_path)
-        self.file_list = np.asarray(list(self.image_dictionary.keys()))
+        self.file_list = np.asarray([i for i in os.listdir(data_path) if i.find('.nii.gz') != -1])
+        self.file_list.sort()
         self.distribute_images()
 
-    def load_all_images(self, data_path):
-        files = [i for i in os.listdir(data_path) if i.find('.nii.gz') != -1]
-        for ii, file in enumerate(files):
-            data = nib.load(os.path.join(data_path,file))
-            data = data.get_fdata() # Data should be of shape [2, # images, # images, 1]
-            images = data[0]
-            annotation = data[1]
-            annotation = np_utils.to_categorical(annotation,2)
-            for i in range(images.shape[0]):
-                self.image_dictionary[file+'_' + str(i)] = [images[i][None,...],annotation[i][None,...]]
-            print('Loading {}% done'.format(str(round((ii+1)/len(files)*100))))
-
+    def load_image(self, file):
+        print(file)
+        data = nib.load(os.path.join(self.data_path,file))
+        data = data.get_fdata() # Data should be of shape [2, # images, # images, 1]
+        images = np.tile(data[0],self.channels)
+        annotation = data[1]
+        annotation = np_utils.to_categorical(annotation,2)
+        self.image_dictionary[file] = [images[None,...],annotation[None,...]]
 
     def shuffle_files(self):
         np.random.shuffle(self.file_list)
@@ -53,8 +51,10 @@ class Data_Generator(Sequence):
                     ii = 0
 
     def __getitem__(self, item):
-        out_images, out_annotations = np.zeros([self.batch_size,512,512,1]), np.zeros([self.batch_size,512,512,2])
+        out_images, out_annotations = np.zeros([self.batch_size,512,512,self.channels]), np.zeros([self.batch_size,512,512,2])
         for i, file in enumerate(self.load_list[item]):
+            if file not in self.image_dictionary:
+                self.load_image(file)
             out_images[i], out_annotations[i] = self.image_dictionary[file]
         if self.mean_val != 0 or self.std_val != 1:
             out_images = (out_images - self.mean_val)/self.std_val

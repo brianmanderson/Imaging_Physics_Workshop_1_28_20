@@ -27,7 +27,6 @@ class Data_Generator(Sequence):
         self.distribute_images()
 
     def load_image(self, file):
-        print(file)
         data = nib.load(os.path.join(self.data_path,file))
         data = data.get_fdata() # Data should be of shape [2, # images, # images, 1]
         images = np.stack([data[0][...,0] for _ in range(self.channels)],axis=-1)
@@ -78,6 +77,8 @@ class Data_Generator(Sequence):
 
     def get_mean_std_val(self):
         self.mean_val, self.std_val = 0, 1
+        reset_vgg = self.on_vgg
+        self.on_vgg = False
         for i in range(self.__len__()):
             print('Calculating mean and std...{}% done'.format(str(round(i/self.__len__()*100))))
             x, y = self.__getitem__(i)
@@ -88,6 +89,7 @@ class Data_Generator(Sequence):
                 output = np.append(output, data, axis=0)
         self.mean_val = round(np.mean(output, axis=0))
         self.std_val = round(np.std(output,axis=0))
+        self.on_vgg = reset_vgg
         print('Mean is {}, and std is {}'.format(str(self.mean_val),str(self.std_val)))
 
 

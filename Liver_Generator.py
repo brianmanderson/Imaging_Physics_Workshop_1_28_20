@@ -9,7 +9,11 @@ from Dicom_RT_and_Images_to_Mask.Image_Array_And_Mask_From_Dicom_RT import plot_
 from keras.utils import np_utils
 
 class Data_Generator(Sequence):
-    def __init__(self, data_path, batch_size=10, shuffle=False, mean_val=0, std_val=1, channels=3):
+    def __init__(self, data_path, batch_size=10, shuffle=False, mean_val=0, std_val=1, channels=1, on_vgg=False):
+        self.on_vgg = on_vgg
+        self.vgg_mean = np.array([123.68, 116.779, 103.939], dtype="float32")
+        if on_vgg:
+            channels = 3
         self.data_path = data_path
         self.channels = channels
         self.mean_val = mean_val
@@ -60,6 +64,9 @@ class Data_Generator(Sequence):
             out_images = (out_images - self.mean_val)/self.std_val
             out_images[out_images<-5] = -5
             out_images[out_images>5] = 5
+        if self.on_vgg:
+            out_images = (out_images+5)/10 * 255 # bring to 0-255 range
+            out_images -= self.vgg_mean # normalize across vgg
         return out_images, out_annotations
 
     def __len__(self):

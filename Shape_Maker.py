@@ -1,9 +1,6 @@
 from keras.utils import Sequence
 import numpy as np
 from skimage.draw import rectangle, circle
-import matplotlib.pyplot as plt
-from keras import Sequential
-from keras.layers import Conv2D, MaxPool2D, Dense, Flatten, Activation, Input
 
 
 def make_rectangle(image_size=50):

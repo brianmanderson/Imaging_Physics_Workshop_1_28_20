@@ -10,3 +10,6 @@
 [submodule "Visualizing_Model"]
 	path = Visualizing_Model
 	url = https://github.com/brianmanderson/Visualizing_Model.git
+[submodule "Easy_VGG16_UNet"]
+	path = Easy_VGG16_UNet
+	url = https://github.com/brianmanderson/Easy_VGG16_UNet.git

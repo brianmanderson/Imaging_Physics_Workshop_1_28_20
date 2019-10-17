@@ -5,5 +5,7 @@
     <mapping directory="$PROJECT_DIR$/Callbacks" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Copy_Folders" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Dicom_RT_and_Images_to_Mask" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Easy_VGG16_UNet" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Visualizing_Model" vcs="Git" />
   </component>
 </project>

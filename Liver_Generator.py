@@ -7,6 +7,14 @@ import numpy as np
 import os
 from Dicom_RT_and_Images_to_Mask.Image_Array_And_Mask_From_Dicom_RT import plot_scroll_Image
 from keras.utils import np_utils
+import keras.backend as K
+
+
+def dice_coef_3D(y_true, y_pred, smooth=0.0001):
+    intersection = K.sum(y_true[...,1:] * y_pred[...,1:])
+    union = K.sum(y_true[...,1:]) + K.sum(y_pred[...,1:])
+    return (2. * intersection + smooth) / (union + smooth)
+
 
 class Data_Generator(Sequence):
     def __init__(self, data_path, batch_size=10, shuffle=False, mean_val=0, std_val=1, channels=1, on_vgg=False):

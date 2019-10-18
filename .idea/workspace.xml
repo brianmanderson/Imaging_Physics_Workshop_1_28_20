@@ -3,9 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="b876930d-857c-4eee-b60f-f7e69535d84a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Data_Curation-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/Data_Curation-checkpoint.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Download_Data-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/Download_Data-checkpoint.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Liver_Model-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/Liver_Model-checkpoint.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeepBox.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/DeepBox.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dicom_RT_and_Images_to_Mask" beforeDir="false" afterPath="$PROJECT_DIR$/Dicom_RT_and_Images_to_Mask" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Download_Data.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Download_Data.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Liver_Generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Liver_Generator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Liver_Model.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Liver_Model.ipynb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,11 +45,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Liver_Generator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="93" selection-start-line="93" selection-end-line="93" />
+            <state relative-caret-position="156">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
               <folding>
                 <element signature="e#57#89#0" expanded="true" />
               </folding>
@@ -66,7 +69,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Dicom_RT_and_Images_to_Mask/Image_Array_And_Mask_From_Dicom_RT.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="110">
@@ -119,7 +122,7 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Dicom_RT_and_Images_to_Mask" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -129,9 +132,9 @@
         <option value="$PROJECT_DIR$/Dicom_RT_and_Images_to_Mask/Image_Array_And_Mask_From_Dicom_RT.py" />
         <option value="$PROJECT_DIR$/Shape_Maker.py" />
         <option value="$PROJECT_DIR$/Distribute_Patients.py" />
-        <option value="$PROJECT_DIR$/Liver_Generator.py" />
         <option value="$PROJECT_DIR$/Test.py" />
         <option value="$PROJECT_DIR$/Visualizing_Model/Visualing_Model.py" />
+        <option value="$PROJECT_DIR$/Liver_Generator.py" />
       </list>
     </option>
   </component>
@@ -333,24 +336,25 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1571069111367</updated>
-      <workItem from="1571069113857" duration="38400000" />
+      <workItem from="1571069113857" duration="40323000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38400000" />
+    <option name="totallyTimeSpent" value="40323000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18550107" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2624811" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Python Console" weight="0.37053087" />
-      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.29035753" />
+      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.43862522" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -565,16 +569,6 @@ rows, cols = np.where(image == 1)</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Liver_Generator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="93" selection-start-line="93" selection-end-line="93" />
-          <folding>
-            <element signature="e#57#89#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -614,10 +608,29 @@ rows, cols = np.where(image == 1)</expression-string>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Liver_Model.ipynb">
+      <provider selected="true" editor-type-id="jupyter-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Download_Data.ipynb">
+      <provider selected="true" editor-type-id="jupyter-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DeepBox.ipynb">
+      <provider selected="true" editor-type-id="jupyter-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/Dicom_RT_and_Images_to_Mask/Image_Array_And_Mask_From_Dicom_RT.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
           <caret line="28" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Liver_Generator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#57#89#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -42,7 +42,7 @@ model_name = 'My_New_Model'
 other_aspects = [model_name,'3_Layers','16_filters'] # Just a list of defining things
 model_path_out = model_path_maker(model_path,other_aspects)
 checkpoint = ModelCheckpoint(model_path_out, monitor='val_dice_coef_3D', verbose=1, save_best_only=True,
-                              save_weights_only=False, period=5, mode='max')
+                              save_weights_only=False, period=1, mode='max')
 # TensorboardImage lets us view the predictions of our model
 tensorboard = TensorBoardImage(log_dir=model_path_out, batch_size=1,update_freq='epoch',
                                data_generator=validation_generator)

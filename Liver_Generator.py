@@ -36,12 +36,12 @@ class Data_Generator(Sequence):
         self.file_list = []
         self.batch_size = batch_size
         self.shuffle = shuffle
+        self.filter_fuction = lambda x: int(x.split('_')[-2].split('image')[0])
         for data_path in data_paths:
             self.load_all_data(data_path)
         if by_patient:
-            self.file_list = np.asarray(list(self.patient_dict.keys()))
-        else:
-            self.file_list = np.asarray(self.file_list)
+            self.file_list = list(self.patient_dict.keys())
+        self.file_list = np.asarray(self.file_list)
         self.distribute_images()
 
     def load_all_data(self, data_path):
@@ -50,20 +50,27 @@ class Data_Generator(Sequence):
         for file in file_list:
             load_path = os.path.join(data_path,file)
             split_up = file.split('_')
-            desc = ''.join(split_up[:-1])
-            self.patient_dict[desc] = []
+            desc = ''.join(split_up[:-2])
+            if desc not in self.patient_dict:
+                self.patient_dict[desc] = [load_path]
+            else:
+                self.patient_dict[desc].append(load_path)
+
+        for key in self.patient_dict.keys(): # Sort the images properly
+            self.patient_dict[key].sort(key=self.filter_fuction)
+            self.file_list += self.patient_dict[key]
+    def load_images(self, file_paths):
+        temp_images, temp_annotations = [], []
+        for load_path in file_paths:
             image_handle = sitk.ReadImage(load_path)
             annotation_handle = sitk.ReadImage(load_path.replace('_image.','_annotation.'))
             images = sitk.GetArrayFromImage(image_handle)
             images = np.stack([images for _ in range(self.channels)], axis=-1)
             annotations = sitk.GetArrayFromImage(annotation_handle)
             annotations = np_utils.to_categorical(annotations,self.classes)
-            for i in range(images.shape[0]):
-                load_name = desc+'_'+str(i)
-                self.file_list.append(load_name)
-                self.patient_dict[desc].append(load_name)
-                self.image_dictionary[load_name] = [images[i,...],annotations[i,...]]
-            print(str(round((1+file_list.index(file))/len(file_list) * 100,2)) + '% Done loading')
+            temp_images.append(images)
+            temp_annotations.append(annotations)
+        return np.asarray(temp_images), np.asarray(temp_annotations)
 
     def shuffle_files(self):
         np.random.shuffle(self.file_list)
@@ -89,7 +96,7 @@ class Data_Generator(Sequence):
                         ii = 0
 
     def __getitem__(self, item):
-        out_images, out_annotations = [np.stack([self.image_dictionary[i][x] for i in self.load_list[item]],axis=0) for x in [0,1]]
+        out_images, out_annotations = self.load_images(self.load_list[item])
         if self.mean_val != 0 or self.std_val != 1:
             out_images = (out_images - self.mean_val)/self.std_val
             out_images[out_images<-5] = -5

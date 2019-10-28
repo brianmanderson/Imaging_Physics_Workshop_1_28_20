@@ -8,7 +8,7 @@ from Visualizing_Model.Visualing_Model import visualization_model_class
 data_path = os.path.join('..','Data','Niftii_Arrays')
 train_path = os.path.join(data_path,'Train')
 validation = os.path.join(data_path,'Validation')
-train_generator = Data_Generator([validation], batch_size=10, on_vgg=True, shuffle=True, by_patient=True) # mean_val=75,std_val=25
+train_generator = Data_Generator([train_path], batch_size=10, on_vgg=True, shuffle=True, by_patient=False) # mean_val=75,std_val=25
 train_generator.shuffle_files()
 x,y = train_generator.__getitem__(0)
 network = {'Layer_0': {'Encoding': [64, 64], 'Decoding': [64, 32]},

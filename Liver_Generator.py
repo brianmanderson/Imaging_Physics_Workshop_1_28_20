@@ -2,7 +2,7 @@ __author__ = 'Brian M Anderson'
 # Created on 10/16/2019
 
 from keras.utils import Sequence
-import nibabel as nib
+import SimpleITK as sitk
 import numpy as np
 import os
 from Dicom_RT_and_Images_to_Mask.Image_Array_And_Mask_From_Dicom_RT import plot_scroll_Image
@@ -17,30 +17,53 @@ def dice_coef_3D(y_true, y_pred, smooth=0.0001):
 
 
 class Data_Generator(Sequence):
-    def __init__(self, data_path, batch_size=10, shuffle=False, mean_val=0, std_val=1, channels=1, on_vgg=False):
+    def __init__(self, data_paths, batch_size=10, shuffle=False, mean_val=0, std_val=1, channels=1, on_vgg=False,
+                 classes=2, by_patient=False):
+        self.by_patient = by_patient
+        if type(data_paths) != list:
+            data_paths = [data_paths]
         self.on_vgg = on_vgg
         self.vgg_mean = np.array([123.68, 116.779, 103.939], dtype="float32")
+        self.classes = classes
         if on_vgg:
             channels = 3
-        self.data_path = data_path
         self.channels = channels
         self.mean_val = mean_val
         self.std_val = std_val
         self.image_dictionary = {}
         self.load_list = []
+        self.patient_dict = {}
+        self.file_list = []
         self.batch_size = batch_size
         self.shuffle = shuffle
-        self.file_list = np.asarray([i for i in os.listdir(data_path) if i.find('.nii.gz') != -1])
-        self.file_list.sort()
+        for data_path in data_paths:
+            self.load_all_data(data_path)
+        if by_patient:
+            self.file_list = np.asarray(list(self.patient_dict.keys()))
+        else:
+            self.file_list = np.asarray(self.file_list)
         self.distribute_images()
 
-    def load_image(self, file):
-        data = nib.load(os.path.join(self.data_path,file))
-        data = data.get_fdata() # Data should be of shape [2, # images, # images, 1]
-        images = np.stack([data[0][...,0] for _ in range(self.channels)],axis=-1)
-        annotation = data[1]
-        annotation = np_utils.to_categorical(annotation,2)
-        self.image_dictionary[file] = [images[None,...],annotation[None,...]]
+    def load_all_data(self, data_path):
+        file_list = os.listdir(data_path)
+        file_list = [i for i in file_list if i.find('_image.nii.gz') != -1]
+        for file in file_list:
+            load_path = os.path.join(data_path,file)
+            split_up = file.split('_')
+            desc = ''.join(split_up[:-1])
+            self.patient_dict[desc] = []
+            image_handle = sitk.ReadImage(load_path)
+            annotation_handle = sitk.ReadImage(load_path.replace('_image.','_annotation.'))
+            images = sitk.GetArrayFromImage(image_handle)
+            images = np.stack([images for _ in range(self.channels)], axis=-1)
+            annotations = sitk.GetArrayFromImage(annotation_handle)
+            annotations = np_utils.to_categorical(annotations,self.classes)
+            for i in range(images.shape[0]):
+                load_name = desc+'_'+str(i)
+                self.file_list.append(load_name)
+                self.patient_dict[desc].append(load_name)
+                self.image_dictionary[load_name] = [images[i,...],annotations[i,...]]
+            print(str(round((1+file_list.index(file))/len(file_list) * 100,2)) + '% Done loading')
 
     def shuffle_files(self):
         np.random.shuffle(self.file_list)
@@ -49,30 +72,35 @@ class Data_Generator(Sequence):
         if self.shuffle:
             self.shuffle_files()
         self.load_list = []
-        ii = 0
-        batch = []
-        for i in range(len(self.file_list)):
-            if ii < self.batch_size:
-                ii += 1
-                batch.append(self.file_list[i])
-            else:
-                if len(batch) == self.batch_size:
-                    self.load_list.append(batch)
-                    batch = []
-                    ii = 0
+        if self.by_patient:
+            for desc in self.file_list:
+                self.load_list.append(self.patient_dict[desc])
+        else:
+            ii = 0
+            batch = []
+            for i in range(len(self.file_list)):
+                if ii < self.batch_size:
+                    ii += 1
+                    batch.append(self.file_list[i])
+                else:
+                    if len(batch) == self.batch_size:
+                        self.load_list.append(batch)
+                        batch = []
+                        ii = 0
 
     def __getitem__(self, item):
-        out_images, out_annotations = np.zeros([self.batch_size,512,512,self.channels]), np.zeros([self.batch_size,512,512,2])
-        for i, file in enumerate(self.load_list[item]):
-            if file not in self.image_dictionary:
-                self.load_image(file)
-            out_images[i], out_annotations[i] = self.image_dictionary[file]
+        out_images, out_annotations = [np.stack([self.image_dictionary[i][x] for i in self.load_list[item]],axis=0) for x in [0,1]]
         if self.mean_val != 0 or self.std_val != 1:
             out_images = (out_images - self.mean_val)/self.std_val
             out_images[out_images<-5] = -5
             out_images[out_images>5] = 5
         if self.on_vgg:
-            out_images = (out_images+5)/10 * 255 # bring to 0-255 range
+            if self.mean_val != 0 and self.std_val != 1:
+                out_images = (out_images+5)/10 * 255 # bring to 0-255 range
+            else:
+                out_images = (out_images + 1000) / 2000 * 255  # bring to 0-255 range
+                out_images[out_images<0] = 0
+                out_images[out_images>255] = 255
             out_images -= self.vgg_mean # normalize across vgg
         return out_images, out_annotations
 

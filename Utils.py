@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import os
 # third-party imports
 import tensorflow as tf
-from keras.optimizers import Adam
 from keras.callbacks import ModelCheckpoint, TensorBoard
 import keras.backend as K
 import io
@@ -10,7 +9,12 @@ from PIL import Image
 import numpy as np
 
 
-
+def model_path_maker(model_path,*args):
+    for arg in args:
+        model_path = os.path.join(model_path,arg)
+    if not os.path.exists(model_path):
+        os.makedirs(model_path)
+    return model_path
 
 
 def make_image(tensor):

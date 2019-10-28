@@ -279,7 +279,7 @@ class TensorBoardImage(TensorBoard):
 
     def add_images(self, epoch):
         # Load image
-        self.data_generator.shuffle()
+        self.data_generator.on_epoch_end()
         num_images = min([3,len(self.data_generator)])
         out_image, out_mask, out_pred = np.zeros([self.rows, int(self.cols*num_images+50*(num_images-1))]), \
                                         np.zeros([self.rows, int(self.cols * num_images + 50 * (num_images - 1))]), \

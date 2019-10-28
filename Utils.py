@@ -10,7 +10,13 @@ import numpy as np
 
 
 def model_path_maker(model_path,*args):
+    out_list = []
     for arg in args:
+        if type(arg) is list:
+            out_list += arg
+        else:
+            out_list.append(arg)
+    for arg in out_list:
         model_path = os.path.join(model_path,arg)
     if not os.path.exists(model_path):
         os.makedirs(model_path)

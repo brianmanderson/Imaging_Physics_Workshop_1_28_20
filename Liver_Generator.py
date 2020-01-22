@@ -3,12 +3,10 @@ __author__ = 'Brian M Anderson'
 
 from keras.utils import Sequence
 import SimpleITK as sitk
-import numpy as np
-import os
-from Dicom_RT_and_Images_to_Mask.Image_Array_And_Mask_From_Dicom_RT import plot_scroll_Image
-from keras.utils import np_utils
 import keras.backend as K
-
+from Base_Deeplearning_Code.Data_Generators.Generators import Train_Data_Generator2D
+from Base_Deeplearning_Code.Data_Generators.Image_Processors import *
+from Base_Deeplearning_Code.Plot_And_Scroll_Images.Plot_Scroll_Images import plot_scroll_Image
 
 def dice_coef_3D(y_true, y_pred, smooth=0.0001):
     intersection = K.sum(y_true[...,1:] * y_pred[...,1:])
@@ -138,7 +136,16 @@ class Data_Generator(Sequence):
 
 
 def main():
+    data_path = os.path.join('..', 'Data', 'Niftii_Arrays')
+    train_path = [os.path.join(data_path, 'Train')]
+    image_processors = [Ensure_Image_Proportions(512,512),Normalize_Images(mean_val=78,std_val=29),
+                        Add_Noise_To_Images(variation=np.round(np.arange(start=0, stop=0.3, step=0.1),2)),
+                        Threshold_Images(lower_bound=-3.55,upper_bound=3.55)]
+    train_generator = Train_Data_Generator2D(data_paths=train_path,image_processors=image_processors, batch_size=5,
+                                             shuffle=True)
+    x,y = train_generator.__getitem__(0)
     pass
 
 if __name__ == '__main__':
+    main()
     xxx = 1

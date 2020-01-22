@@ -13,3 +13,6 @@
 [submodule "Easy_VGG16_UNet"]
 	path = Easy_VGG16_UNet
 	url = https://github.com/brianmanderson/Easy_VGG16_UNet.git
+[submodule "Base_Deeplearning_Code"]
+	path = Base_Deeplearning_Code
+	url = https://github.com/brianmanderson/Base_Deeplearning_Code.git

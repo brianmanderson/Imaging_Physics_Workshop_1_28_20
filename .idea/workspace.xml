@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b876930d-857c-4eee-b60f-f7e69535d84a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Base_Deeplearning_Code" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitmodules" beforeDir="false" afterPath="$PROJECT_DIR$/.gitmodules" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Liver_Model-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/Liver_Model-checkpoint.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Liver_Generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Liver_Generator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Liver_Model.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Liver_Model.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Base_Deeplearning_Code" beforeDir="false" afterPath="$PROJECT_DIR$/Base_Deeplearning_Code" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Click_Me.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Click_Me.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data_Curation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_Modules/Data_Curation.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeepBox.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_Modules/DeepBox.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Download_Data.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_Modules/Download_Data.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Liver_Model.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_Modules/Liver_Model.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Merge_Notebooks.py" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_Modules/Merge_Notebooks.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

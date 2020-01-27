@@ -2,29 +2,37 @@ __author__ = 'Brian M Anderson'
 # Created on 10/22/2019
 import os
 import SimpleITK as sitk
-import numpy as np
-from Dicom_RT_and_Images_to_Mask.Image_Array_And_Mask_From_Dicom_RT import DicomImagestoData, plot_scroll_Image
+from Dicom_RT_and_Images_to_Mask.Image_Array_And_Mask_From_Dicom_RT import Dicom_to_Imagestack
+from Dicom_RT_and_Images_to_Mask.Plot_And_Scroll_Images.Plot_Scroll_Images import plot_scroll_Image
 
-def write_data(data_path, out_path, associations):
+def write_data(data_path, out_path, Dicom_Reader):
+    desc = 'TCIA_Liver_Patients'
+    Dicom_Reader.set_description(desc)
+    iteration = 0
     for patient in os.listdir(data_path):
         print(patient)
         patient_data_path = os.path.join(data_path,patient)
-        out_file = os.path.join(out_path,patient+'.txt')
-        if not os.path.exists(out_file) or True:
-            Dicom_Reader = DicomImagestoData(path=patient_data_path,get_images_mask=False,associations=associations)
-            image_handle = Dicom_Reader.dicom_handle
-            Dicom_Reader.get_mask(['Liver']) # Tell the class to load up the mask with contour name 'Liver'
-            mask_handle = Dicom_Reader.mask_handle
-            out_write_image = os.path.join(out_path, patient + '_image.nii.gz')
-            sitk.WriteImage(image_handle,out_write_image)
-            sitk.WriteImage(mask_handle,out_write_image.replace('_image.','_annotation.'))
-            fid = open(out_file,'w+')
-            fid.close()
+        out_file = os.path.join(patient_data_path, desc + '_Iteration_' + str(iteration) + '.txt')
+        if not os.path.exists(out_file):
+            Dicom_Reader.Make_Contour_From_directory(patient_data_path)
+            Dicom_Reader.set_iteration(iteration)
+            Dicom_Reader.write_images_annotations(out_path)
+        iteration += 1
+    return None
 
-associations = {'Liver_BMA_Program_4':'Liver',
-                'bma_liver':'Liver',
+associations = {'Liver_BMA_Program_4':'liver',
+                'bma_liver':'liver',
                 'best_liver':'Liver',
                 'tried_liver':'Liver'}
-input_path = os.path.join('..','Data','Whole_Patients')
+data_path = os.path.join('..','Data','Whole_Patients')
 output_path = os.path.join('..','Data','Niftii_Arrays')
-write_data(input_path,output_path, associations)
+Dicom_Reader = Dicom_to_Imagestack(get_images_mask=False)
+# Dicom_Reader.down_folder(data_path)
+# all_rois = Dicom_Reader.all_rois
+Dicom_Reader.set_associations(associations)
+Dicom_Reader.set_get_images_and_mask(True)
+Dicom_Reader.set_contour_names(['Liver'])
+# Dicom_Reader.Make_Contour_From_directory(os.path.join(data_path,'ABD_LYMPH_036'))
+
+xxx = 1
+write_data(data_path,output_path, Dicom_Reader)

@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b876930d-857c-4eee-b60f-f7e69535d84a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Workshop_Modules/.ipynb_checkpoints/Data_Curation-checkpoint.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Workshop_Modules/.ipynb_checkpoints/DeepBox-checkpoint.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Base_Deeplearning_Code" beforeDir="false" afterPath="$PROJECT_DIR$/Base_Deeplearning_Code" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Liver_Generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Liver_Generator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dicom_RT_and_Images_to_Mask" beforeDir="false" afterPath="$PROJECT_DIR$/Dicom_RT_and_Images_to_Mask" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test_Curation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Test_Curation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Visualizing_Model" beforeDir="false" afterPath="$PROJECT_DIR$/Visualizing_Model" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_Modules/Data_Curation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_Modules/Data_Curation.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Workshop_Modules/DeepBox.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Workshop_Modules/DeepBox.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -233,11 +239,6 @@
           <url>file://$APPLICATION_CONFIG_DIR$/scratches/scratch_28.py</url>
           <line>123</line>
           <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Test_Curation.py</url>
-          <line>17</line>
-          <option name="timeStamp" value="42" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$APPLICATION_CONFIG_DIR$/scratches/scratch_31.py</url>

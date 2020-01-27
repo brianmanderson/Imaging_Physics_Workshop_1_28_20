@@ -138,7 +138,7 @@ class Data_Generator(Sequence):
 def main():
     data_path = os.path.join('..', 'Data', 'Niftii_Arrays')
     train_path = [os.path.join(data_path, 'Train')]
-    image_processors = [Ensure_Image_Proportions(512,512),Normalize_Images(mean_val=78,std_val=29),
+    image_processors = [Ensure_Image_Proportions(128,128),Normalize_Images(mean_val=78,std_val=29),
                         Add_Noise_To_Images(variation=np.round(np.arange(start=0, stop=0.3, step=0.1),2)),
                         Threshold_Images(lower_bound=-3.55,upper_bound=3.55)]
     train_generator = Train_Data_Generator2D(data_paths=train_path,image_processors=image_processors, batch_size=5,

@@ -4,3 +4,5 @@ __pycache__/
 /Workshop_Modules/.ipynb_checkpoints/
 *Models*
 *Activations*
+/Activations/
+/Workshop_Modules/Activations/

@@ -3,6 +3,4 @@ __pycache__/
 .idea/
 /Workshop_Modules/.ipynb_checkpoints/
 *Models*
-*Activations*
-/Activations/
 /Workshop_Modules/Activations/

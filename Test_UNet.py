@@ -1,106 +1,97 @@
-__author__ = 'Brian M Anderson'
-# Created on 10/28/2019
-
 import os, sys
 sys.path.append('..')
-from Base_Deeplearning_Code.Data_Generators.Generators import Train_Data_Generator2D, os
+from Base_Deeplearning_Code.Data_Generators.Generators import Data_Generator_class, os
 from Base_Deeplearning_Code.Keras_Utils.Keras_Utilities import np, dice_coef_3D
 from Base_Deeplearning_Code.Plot_And_Scroll_Images.Plot_Scroll_Images import plot_scroll_Image
 from Base_Deeplearning_Code.Data_Generators.Image_Processors import *
 from Base_Deeplearning_Code.Callbacks.Visualizing_Model_Utils import TensorBoardImage
-from Base_Deeplearning_Code.Models.Keras_3D_Models import my_3D_UNet
 from Utils import ModelCheckpoint, model_path_maker
-import tensorflow as tf
-import keras.backend as K
+# import tensorflow as tf
+# import keras.backend as K
+# from Base_Deeplearning_Code.Models.Keras_3D_Models import my_3D_UNet
+# from Base_Deeplearning_Code.Cyclical_Learning_Rate.clr_callback import CyclicLR
+# from functools import partial
+# from keras.optimizers import Adam
 
-def get_layers_dict(layers=1, filters=16, conv_blocks=1, num_atrous_blocks=4, max_blocks=2, max_filters=np.inf,
-                    atrous_rate=1, max_atrous_rate=2, **kwargs):
-    activation = {'activation':PReLU,'kwargs':{'alpha_initializer':Constant(0.25),'shared_axes':[1,2,3]}}
-    activation = 'relu'
-    layers_dict = {}
-    conv_block = lambda x: {'convolution': {'channels': x, 'kernel': (3, 3, 3), 'strides': (1, 1, 1),'activation':activation}}
-    strided_block = lambda x: {'convolution': {'channels': x, 'kernel': (3, 3, 3), 'strides': (2, 2, 2), 'activation':activation}}
-    atrous_block = lambda x,y,z: {'atrous': {'channels': x, 'atrous_rate': y, 'activations': z}}
-    for layer in range(conv_blocks,layers-1):
-        encoding = [atrous_block(filters,atrous_rate,[activation for _ in range(atrous_rate)]) for _ in range(num_atrous_blocks)]
-        atrous_block_dec = [atrous_block(filters,atrous_rate,[activation for _ in range(atrous_rate)]) for _ in range(num_atrous_blocks)]
-        if layer == 0:
-            encoding = [conv_block(filters)] + encoding
-        if filters < max_filters:
-            filters = int(filters*2)
-        layers_dict['Layer_' + str(layer)] = {'Encoding': encoding,
-                                              'Pooling':{'Encoding':[strided_block(filters)],'Pool_Size':(2,2,2)},
-                                              'Decoding': atrous_block_dec}
-        num_atrous_blocks = min([(num_atrous_blocks) * 2,max_blocks])
-    num_atrous_blocks = min([(num_atrous_blocks) * 2, max_blocks])
-    layers_dict['Base'] = {'Encoding':[atrous_block(filters,atrous_rate,[activation for _ in range(atrous_rate)]) for _ in range(num_atrous_blocks)]}
-    return layers_dict
-layers_dict = {}
-filters = 16
-activation = 'relu'
-kernel = (3,3)
-pooling = (2,2)
-from Base_Deeplearning_Code.Models.Keras_3D_Models import my_3D_UNet
-from functools import partial
-conv_block = lambda x: {'convolution': {'channels': x, 'kernel': kernel, 'strides': (1, 1),'activation':activation}}
-strided_block = lambda x: {'convolution': {'channels': x, 'kernel': kernel, 'strides': (2, 2),'activation':activation}}
-conv_block = lambda x: {'channels':x}
-strided_block = lambda x: {'channels':x,'strides':(2,2)}
-layers_dict['Layer_0'] = {'Encoding':[conv_block(filters),conv_block(filters)],
-                          'Decoding':[conv_block(filters),conv_block(filters)],
-                          'Pooling':{'Encoding':[strided_block(filters)]}}
-filters = 32
-layers_dict['Layer_1'] = {'Encoding':[conv_block(filters),conv_block(filters)],
-                          'Decoding':[conv_block(filters),conv_block(filters)],
-                          'Pooling':{'Encoding':[strided_block(filters)]}}
-filters = 64
-layers_dict['Base'] = {'Encoding':[conv_block(filters), conv_block(filters)]}
-new_model = my_3D_UNet(kernel=kernel,layers_dict=layers_dict, pool_size=(2,2),activation=activation,is_2D=True,
-                       input_size=3, image_size=512)
-data_path = os.path.join('..','Data','Niftii_Arrays')
-train_path = os.path.join(data_path,'Train')
+
+base = '.'
+for i in range(3):
+    if 'Data' not in os.listdir(base):
+        base = os.path.join(base,'..')
+    else:
+        break
+
+data_path = os.path.join(base,'Data','Niftii_Arrays')
+train_path = [os.path.join(data_path,'Train')]
 validation_path = os.path.join(data_path,'Validation')
 test_path = os.path.join(data_path,'Test')
-model_path = os.path.join('..','Models')
+model_path = os.path.join(base,'Models')
 if not os.path.exists(model_path):
     os.makedirs(model_path)
 
-args = {'batch_size':1,'on_vgg':False, 'mean_val':81,'std_val':30}#'mean_val':81,'std_val':31,
-train_generator = Data_Generator(train_path, shuffle=True, **args) # mean_val=81,std_val=30
-args_val = {'on_vgg':False,'mean_val':train_generator.mean_val,'std_val':train_generator.std_val,'by_patient':False,
-       'shuffle':True,'batch_size':5}#'mean_val':81,'
-validation_generator = Data_Generator(validation_path, **args_val)
-args_val = {'on_vgg':False,'mean_val':train_generator.mean_val,'std_val':train_generator.std_val,'by_patient':True,
-       'shuffle':False}
-test_generator = Data_Generator(test_path, **args_val)
+image_processors_train = [Ensure_Image_Proportions(512,512),Repeat_Channel(repeats=3),
+                          Normalize_Images(mean_val=78,std_val=29),
+                          Add_Noise_To_Images(variation=np.round(np.arange(start=0, stop=0.3, step=0.1),2)),
+                          Threshold_Images(lower_bound=-3.55,upper_bound=3.55),
+                          Annotations_To_Categorical(2)]
+image_processors_test = [Ensure_Image_Proportions(512,512),Normalize_Images(mean_val=78,std_val=29),
+                         Repeat_Channel(repeats=3), Threshold_Images(lower_bound=-3.55,upper_bound=3.55),
+                         Annotations_To_Categorical(2)]
+train_generator = Data_Generator_class(by_patient=False,data_paths=train_path,shuffle=True,batch_size=5,
+                                       image_processors=image_processors_train)
+validation_generator = Data_Generator_class(by_patient=True, whole_patient=False,data_paths=validation_path,shuffle=False,
+                                      image_processors=image_processors_train, batch_size=50)
+x,y = train_generator.__getitem__(0)
+train_generator = Train_Data_Generator2D(shuffle=True,data_paths=train_path,batch_size=5,image_processors=image_processors_train)
+validation_generator = Train_Data_Generator2D(shuffle=True,data_paths=validation_path,batch_size=5,image_processors=image_processors_test)
+
+
+activation = 'relu'
+kernel = (3,3)
+pool_size = (2,2)
+
+conv_block = lambda x: {'channels': x}
+strided_block = lambda x: {'channels': x, 'strides': (2, 2)}
 
 layers_dict = {}
-conv_block = lambda x: {'Channels': [x], 'Kernel': [(3, 3)]}
-pool = (4,4)
 filters = 16
-layers_dict['Layer_0'] = {'Encoding':[conv_block(filters), conv_block(filters)],'Pooling':pool,
-                         'Decoding':[conv_block(filters),conv_block(filters)]}
-pool = (2,2)
+layers_dict['Layer_0'] = {'Encoding':[conv_block(filters),conv_block(filters)],
+                          'Decoding':[conv_block(filters),conv_block(filters)],
+                          'Pooling':{}}
 filters = 32
-layers_dict['Layer_1'] = {'Encoding':[conv_block(filters), conv_block(filters)],'Pooling':pool,
-                         'Decoding':[conv_block(filters),conv_block(filters)]}
+layers_dict['Layer_1'] = {'Encoding':[conv_block(filters),conv_block(filters)],
+                          'Decoding':[conv_block(filters),conv_block(filters)],
+                          'Pooling':{}}
 filters = 64
 layers_dict['Base'] = {'Encoding':[conv_block(filters), conv_block(filters)]}
 
-model_name = 'My_New_Model'
-other_aspects = [model_name,'3_Layers','16_filters'] # Just a list of defining things
-model_path_out = model_path_maker(model_path,other_aspects)
-checkpoint = ModelCheckpoint(os.path.join(model_path_out,'best-mode.hdf5'), monitor='val_dice_coef_3D', verbose=1, save_best_only=True,
-                              save_weights_only=False, period=5, mode='max')
-# TensorboardImage lets us view the predictions of our model
-tensorboard = TensorBoardImage(log_dir=model_path_out, batch_size=1,update_freq='epoch',
-                               data_generator=validation_generator)
-callbacks = [checkpoint, tensorboard]
+K.clear_session()
 gpu_options = tf.GPUOptions(allow_growth=True)
 sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options, log_device_placement=False))
 K.set_session(sess)
-new_model = my_UNet(layers_dict=layers_dict, image_size=512, num_channels=train_generator.channels).created_model
-new_model.compile(Adam(lr=1e-5), loss='categorical_crossentropy', metrics=['accuracy', dice_coef_3D])
-new_model.fit_generator(train_generator,epochs=30, workers=20, max_queue_size=50, validation_data=validation_generator,
-                       callbacks=callbacks, steps_per_epoch=100)
-K.clear_session()
+new_model = my_3D_UNet(kernel=kernel,layers_dict=layers_dict, pool_size=pool_size,activation=activation,is_2D=True,
+                       input_size=3, image_size=512).created_model
+
+min_lr = 1e-5
+max_lr = 1e-3
+new_model.compile(Adam(lr=min_lr),loss='categorical_crossentropy', metrics=['accuracy',dice_coef_3D])
+
+model_name = 'My_New_Model'
+other_aspects = [model_name,'{}_Layers'.format(3),'{}_Conv_Blocks'.format(2),
+                 '{}_Filters'.format(16),'{}_MinLR_{}_MaxLR'.format(min_lr,max_lr)] # Just a list of defining things
+model_path_out = model_path_maker(model_path,other_aspects)
+
+steps_per_epoch = 100
+step_size_factor = 10
+
+checkpoint = ModelCheckpoint(os.path.join(model_path_out,'best-model.hdf5'), monitor='val_dice_coef_3D', verbose=1, save_best_only=True,
+                              save_weights_only=False, period=5, mode='max')
+# TensorboardImage lets us view the predictions of our model
+tensorboard = TensorBoardImage(log_dir=model_path_out, batch_size=1, num_images=3,update_freq='epoch',
+                               data_generator=validation_generator, image_frequency=1)
+lrate = CyclicLR(base_lr=min_lr, max_lr=max_lr, step_size=steps_per_epoch * step_size_factor, mode='triangular2')
+callbacks = [lrate, checkpoint, tensorboard]
+
+x,y = train_generator.__getitem__(0)
+new_model.fit_generator(train_generator,epochs=50, workers=50, max_queue_size=200, validation_data=validation_generator,
+                        callbacks=callbacks, steps_per_epoch=steps_per_epoch)

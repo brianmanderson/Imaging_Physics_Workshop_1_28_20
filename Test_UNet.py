@@ -44,13 +44,15 @@ from Base_Deeplearning_Code.Models.Keras_3D_Models import my_3D_UNet
 from functools import partial
 conv_block = lambda x: {'convolution': {'channels': x, 'kernel': kernel, 'strides': (1, 1),'activation':activation}}
 strided_block = lambda x: {'convolution': {'channels': x, 'kernel': kernel, 'strides': (2, 2),'activation':activation}}
+conv_block = lambda x: {'channels': x}
+strided_block = lambda x: {'channels': x, 'strides': (2, 2)}
 layers_dict['Layer_0'] = {'Encoding':[conv_block(filters),conv_block(filters)],
                           'Decoding':[conv_block(filters),conv_block(filters)],
-                          'Pooling':{'Encoding':[strided_block(filters)]}}
+                          'Pooling':{}}
 filters = 32
 layers_dict['Layer_1'] = {'Encoding':[conv_block(filters),conv_block(filters)],
                           'Decoding':[conv_block(filters),conv_block(filters)],
-                          'Pooling':{'Encoding':[strided_block(filters)]}}
+                          'Pooling':{}}
 filters = 64
 layers_dict['Base'] = {'Encoding':[conv_block(filters), conv_block(filters)]}
 new_model = my_3D_UNet(kernel=kernel,layers_dict=layers_dict, pool_size=(2,2),activation=activation,is_2D=True,

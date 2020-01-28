@@ -16,3 +16,6 @@
 [submodule "Base_Deeplearning_Code"]
 	path = Base_Deeplearning_Code
 	url = https://github.com/brianmanderson/Base_Deeplearning_Code.git
+[submodule "Make_Single_Images"]
+	path = Make_Single_Images
+	url = https://github.com/brianmanderson/Make_Single_Images

@@ -10,14 +10,17 @@ class Separate_files(object):
         self.path = path
         separate_dictionary(separate_by_desc(path),path)
 def separate_by_desc(path):
-    files = [i for i in os.listdir(path) if i.find('.nii.gz') != -1]
+    files = [i for i in os.listdir(path) if i.find('Overall_mask') == 0]
     file_dictionary = {}
     for file in files:
-        desc = ''.join(file.split('_')[:3])
-        if desc not in file_dictionary:
-            file_dictionary[desc] = [file]
+        iteration = file.split('_y')[1].split('.nii')[0]
+        desc = file.split('Overall_mask_')[1].split('_y')[0]
+        total_desc = desc + iteration
+        if total_desc not in file_dictionary:
+            file_dictionary[total_desc] = [file]
         else:
-            file_dictionary[desc].append(file)
+            file_dictionary[total_desc].append(file)
+        file_dictionary[total_desc].append(file.replace('_y','_').replace('Overall_mask','Overall_Data'))
     return file_dictionary
 
 def separate_dictionary(file_dictionary, path=None):

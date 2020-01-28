@@ -1,14 +1,60 @@
 __author__ = 'Brian M Anderson'
 # Created on 10/28/2019
 
-from keras.optimizers import Adam
-from UNet_Maker import my_UNet, K
-from Liver_Generator import Data_Generator, os, plot_scroll_Image, dice_coef_3D
+import os, sys
+sys.path.append('..')
+from Base_Deeplearning_Code.Data_Generators.Generators import Train_Data_Generator2D, os
+from Base_Deeplearning_Code.Keras_Utils.Keras_Utilities import np, dice_coef_3D
+from Base_Deeplearning_Code.Plot_And_Scroll_Images.Plot_Scroll_Images import plot_scroll_Image
+from Base_Deeplearning_Code.Data_Generators.Image_Processors import *
+from Base_Deeplearning_Code.Callbacks.Visualizing_Model_Utils import TensorBoardImage
+from Base_Deeplearning_Code.Models.Keras_3D_Models import my_3D_UNet
 from Utils import ModelCheckpoint, model_path_maker
 import tensorflow as tf
-from tensorflow import Graph, Session, ConfigProto, GPUOptions
-from Callbacks.Visualizing_Model_Utils import TensorBoardImage
+import keras.backend as K
 
+def get_layers_dict(layers=1, filters=16, conv_blocks=1, num_atrous_blocks=4, max_blocks=2, max_filters=np.inf,
+                    atrous_rate=1, max_atrous_rate=2, **kwargs):
+    activation = {'activation':PReLU,'kwargs':{'alpha_initializer':Constant(0.25),'shared_axes':[1,2,3]}}
+    activation = 'relu'
+    layers_dict = {}
+    conv_block = lambda x: {'convolution': {'channels': x, 'kernel': (3, 3, 3), 'strides': (1, 1, 1),'activation':activation}}
+    strided_block = lambda x: {'convolution': {'channels': x, 'kernel': (3, 3, 3), 'strides': (2, 2, 2), 'activation':activation}}
+    atrous_block = lambda x,y,z: {'atrous': {'channels': x, 'atrous_rate': y, 'activations': z}}
+    for layer in range(conv_blocks,layers-1):
+        encoding = [atrous_block(filters,atrous_rate,[activation for _ in range(atrous_rate)]) for _ in range(num_atrous_blocks)]
+        atrous_block_dec = [atrous_block(filters,atrous_rate,[activation for _ in range(atrous_rate)]) for _ in range(num_atrous_blocks)]
+        if layer == 0:
+            encoding = [conv_block(filters)] + encoding
+        if filters < max_filters:
+            filters = int(filters*2)
+        layers_dict['Layer_' + str(layer)] = {'Encoding': encoding,
+                                              'Pooling':{'Encoding':[strided_block(filters)],'Pool_Size':(2,2,2)},
+                                              'Decoding': atrous_block_dec}
+        num_atrous_blocks = min([(num_atrous_blocks) * 2,max_blocks])
+    num_atrous_blocks = min([(num_atrous_blocks) * 2, max_blocks])
+    layers_dict['Base'] = {'Encoding':[atrous_block(filters,atrous_rate,[activation for _ in range(atrous_rate)]) for _ in range(num_atrous_blocks)]}
+    return layers_dict
+layers_dict = {}
+filters = 16
+activation = 'relu'
+kernel = (3,3)
+pooling = (2,2)
+from Base_Deeplearning_Code.Models.Keras_3D_Models import my_3D_UNet
+from functools import partial
+conv_block = lambda x: {'convolution': {'channels': x, 'kernel': kernel, 'strides': (1, 1),'activation':activation}}
+strided_block = lambda x: {'convolution': {'channels': x, 'kernel': kernel, 'strides': (2, 2),'activation':activation}}
+layers_dict['Layer_0'] = {'Encoding':[conv_block(filters),conv_block(filters)],
+                          'Decoding':[conv_block(filters),conv_block(filters)],
+                          'Pooling':{'Encoding':[strided_block(filters)]}}
+filters = 32
+layers_dict['Layer_1'] = {'Encoding':[conv_block(filters),conv_block(filters)],
+                          'Decoding':[conv_block(filters),conv_block(filters)],
+                          'Pooling':{'Encoding':[strided_block(filters)]}}
+filters = 64
+layers_dict['Base'] = {'Encoding':[conv_block(filters), conv_block(filters)]}
+new_model = my_3D_UNet(kernel=kernel,layers_dict=layers_dict, pool_size=(2,2),activation=activation,is_2D=True,
+                       input_size=3, image_size=512)
 data_path = os.path.join('..','Data','Niftii_Arrays')
 train_path = os.path.join(data_path,'Train')
 validation_path = os.path.join(data_path,'Validation')

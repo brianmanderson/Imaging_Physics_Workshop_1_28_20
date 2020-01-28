@@ -22,8 +22,8 @@ def write_data(data_path, out_path, Dicom_Reader):
         iteration += 1
     return None
 
-associations = {'Liver_BMA_Program_4':'liver',
-                'bma_liver':'liver',
+associations = {'Liver_BMA_Program_4':'Liver',
+                'bma_liver':'Liver',
                 'best_liver':'Liver',
                 'tried_liver':'Liver'}
 data_path = os.path.join('..','Data','Whole_Patients')
@@ -34,7 +34,7 @@ Dicom_Reader = Dicom_to_Imagestack(get_images_mask=False)
 Dicom_Reader.set_associations(associations)
 Dicom_Reader.set_get_images_and_mask(True)
 Dicom_Reader.set_contour_names(['Liver'])
-# Dicom_Reader.Make_Contour_From_directory(os.path.join(data_path,'ABD_LYMPH_036'))
+Dicom_Reader.Make_Contour_From_directory(os.path.join(data_path,'ABD_LYMPH_036'))
 
 xxx = 1
 # write_data(data_path,output_path, Dicom_Reader)

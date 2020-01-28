@@ -1,7 +1,7 @@
 from nbmerge import merge_notebooks, write_notebook
 import io, os
 
-base_path = r'\\mymdafiles\di_data1\Morfeus\BMAnderson\DIP_Workshop\Code'
+base_path = os.path.join('.')
 file_names = ['Download_Data.ipynb','DeepBox.ipynb','Data_Curation.ipynb','Liver_Model.ipynb']
 module_path = os.path.join(base_path,'Workshop_Modules')
 file_paths = [os.path.join(module_path,i) for i in file_names]

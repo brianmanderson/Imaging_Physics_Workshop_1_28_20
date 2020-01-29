@@ -1,28 +1,51 @@
-__author__ = 'Brian M Anderson'
-# Created on 10/17/2019
+import numpy as np
+import matplotlib.pyplot as plt
+import sys, os
+sys.path.append('..')
+from Base_Deeplearning_Code.Visualizing_Model.Visualing_Model import visualization_model_class
+from keras import Sequential
+from keras.layers import Conv2D, MaxPool2D, Dense, Flatten, Activation
+from keras.optimizers import Adam
+import tensorflow as tf
+import keras.backend as K
+from tensorflow import Graph, Session, ConfigProto, GPUOptions
 
-from Liver_Generator import Data_Generator, os, plot_scroll_Image
-from Easy_VGG16_UNet.Keras_Fine_Tune_VGG_16_Liver import VGG_16
-from Visualizing_Model.Visualing_Model import visualization_model_class
+from Shape_Maker import Data_Generator, make_rectangle, make_circle
 
-data_path = os.path.join('..','Data','Niftii_Arrays')
-train_path = os.path.join(data_path,'Train')
-validation = os.path.join(data_path,'Validation')
-train_generator = Data_Generator([train_path], batch_size=10, on_vgg=True, shuffle=True, by_patient=False) # mean_val=75,std_val=25
-train_generator.shuffle_files()
-x,y = train_generator.__getitem__(0)
-network = {'Layer_0': {'Encoding': [64, 64], 'Decoding': [64, 32]},
-           'Layer_1': {'Encoding': [128, 128], 'Decoding': [128]},
-           'Layer_2': {'Encoding': [256, 256, 256], 'Decoding': [256]},
-           'Layer_3': {'Encoding': [512, 512, 512], 'Decoding': [512]},
-           'Layer_4': {'Encoding': [512, 512, 512]}}
-VGG_model = VGG_16(network=network, activation='relu',filter_size=(3,3))
-VGG_model.make_model()
-VGG_model.load_weights()
-new_model = VGG_model.created_model
-Visualizing_Class = visualization_model_class(model=new_model, save_images=True)
-Visualizing_Class.define_desired_layers()
-Visualizing_Class.predict_on_tensor(x)
+def prep_network():
+    K.clear_session()
+    gpu_options = tf.GPUOptions(allow_growth=True)
+    sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options, log_device_placement=False))
+    K.set_session(sess)
+    return None
+
+
+image_size = 64
+
+train_generator = Data_Generator(image_size=image_size,batch_size=32, num_examples_per_epoch=150)
+
+prep_network()
+num_kernels = 4
+kernel_size = (3,3)
+model = Sequential([
+    Conv2D(num_kernels, kernel_size,
+           input_shape=(image_size, image_size, 1),
+           padding='same',name='Conv_0',activation='sigmoid'),
+    MaxPool2D((image_size)), # Pool into a 1x1x4 image
+    Flatten(),
+    Dense(2,activation='softmax')
+])
+
+model.compile(Adam(lr=1e-1), loss='categorical_crossentropy', metrics=['accuracy'])
+
+model.fit_generator(train_generator,epochs=5)
+
+Visualizing_Class = visualization_model_class(model=model)
+
+Visualizing_Class.define_desired_layers(desired_layer_names=['Conv_0'])
+
+Visualizing_Class.plot_kernels()
+
+Visualizing_Class.predict_on_tensor(make_rectangle(image_size)[None,...,None])
+
 Visualizing_Class.plot_activations()
-# x,y = train_generator.__getitem__(0)
-xxx = 1

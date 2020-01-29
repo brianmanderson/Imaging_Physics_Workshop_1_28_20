@@ -9,7 +9,8 @@ from ipywidgets import interactive, IntSlider
 
 
 class scroll_bar_class(object):
-    def __init__(self,numpy_images):
+    def __init__(self,numpy_images, title=None):
+        self.title = title
         images = np.squeeze(numpy_images)
         if images.shape[-1] == 3:
             images = images[...,1]
@@ -17,9 +18,9 @@ class scroll_bar_class(object):
             images = np.argmax(images,axis=-1)
         self.selected_images = sitk.GetImageFromArray(images,isVector=False)
         self.size = self.selected_images.GetSize()
-    def custom_myshow1(self,img, title=None, margin=0.05, dpi=80 ):
+
+    def custom_myshow1(self,img, margin=0.05, dpi=80 ):
         nda = sitk.GetArrayFromImage(img)
-        spacing = img.GetSpacing()
         if nda.ndim == 3:
             # fastest dim, either component or x
             c = nda.shape[-1]
@@ -32,7 +33,7 @@ class scroll_bar_class(object):
             c = nda.shape[-1]
 
             if not c in (3,4):
-                raise Runtime("Unable to show 3D-vector Image")
+                raise ReferenceError("Unable to show 3D-vector Image")
 
             # take a z-slice
             nda = nda[nda.shape[0]//2,:,:,:]
@@ -67,6 +68,7 @@ def plot_Image_Scroll_Bar_Image(x):
     output = interactive_plot.children[-1]
     output.layout.height = '600px'
     return interactive_plot
+
 
 if __name__ == '__main__':
     pass

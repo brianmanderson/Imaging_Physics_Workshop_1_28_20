@@ -1,5 +1,6 @@
 __author__ = 'Brian M Anderson'
 # Created on 1/29/2020
+## Original code provided by Tucker Netherton (@tnetherton), modified by @cecardenas, modularized by @bmanderson
 
 import numpy as np
 import matplotlib.pyplot as plt

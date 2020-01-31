@@ -8,4 +8,4 @@
 
 ### 3. Search 'BrianMAnderson'
 
-### 4. Select 'Imaging_Physics_Workshop_1_28_20' and then 'Click_Me'
+### 4. Select 'Imaging_Physics_Workshop_1_28_20' and then 'Click_Me.ipynb'
